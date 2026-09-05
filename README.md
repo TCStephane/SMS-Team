@@ -3,9 +3,9 @@
 ## Team Members
 | Name | Email |
 |---|---|
-| Dorcase Lesly Nana Tounda | [email] |
+| Dorcase Lesly Nana Tounda | d.nanatoun@alustudent.com |
 | Migisha Olivier | o.migisha@alustudent.com |
-| Stephane Tchatchum Chassem | [email] |
+| Stephane Tchatchum Chassem | stephanetchatchum@gmail.com/t.stephane@alustudent.com |
 
 ## Project Description
 This project processes Mobile Money (MoMo) SMS transaction data provided in XML format. The system parses the raw messages, cleans and normalizes the data (phone numbers, amounts, dates), categorizes each transaction (deposit, withdrawal, payment, airtime purchase, failed transaction, etc.), and loads it into a SQLite database. A frontend dashboard then displays the processed data through charts and tables, allowing users to analyze transaction patterns such as total volume per category or most common transaction types.
