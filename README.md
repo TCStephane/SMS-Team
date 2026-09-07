@@ -11,12 +11,12 @@
 This project processes Mobile Money (MoMo) SMS transaction data provided in XML format. The system parses the raw messages, cleans and normalizes the data (phone numbers, amounts, dates), categorizes each transaction (deposit, withdrawal, payment, airtime purchase, failed transaction, etc.), and loads it into a SQLite database. A frontend dashboard then displays the processed data through charts and tables, allowing users to analyze transaction patterns such as total volume per category or most common transaction types.
 
 ## System Architecture
-Diagram: [Add draw.io / Miro link here]
+Diagram: https://drive.google.com/file/d/1S9XQpp4Zy9GHpasJ5rH_kUblvPkCtMb0/view?usp=drive_link
 
 Flow: XML file → ETL pipeline (parse, clean, categorize) → SQLite database → API (optional) → Frontend dashboard
 
 ## Scrum Board
-Board: [Add Trello / GitHub Projects / Jira link here]
+Board: https://github.com/users/Edenoliver19/projects/1/views/1
 
 ## Project Structure
 ```
@@ -31,7 +31,7 @@ Board: [Add Trello / GitHub Projects / Jira link here]
 │   ├── db.sqlite3         # SQLite DB file
 │   └── logs/              # ETL logs
 ├── etl/                   # Parsing, cleaning, categorizing, loading scripts
-├── api/                   # Optional FastAPI layer
+├── api/                   
 ├── scripts/               # Shell scripts to run ETL / serve frontend
 └── tests/                 # Unit tests
 ```
