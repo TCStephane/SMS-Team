@@ -16,7 +16,7 @@ Diagram: [Add draw.io / Miro link here]
 Flow: XML file → ETL pipeline (parse, clean, categorize) → SQLite database → API (optional) → Frontend dashboard
 
 ## Scrum Board
-Board: [Add Trello / GitHub Projects / Jira link here]
+Board: https://github.com/users/Edenoliver19/projects/1/views/1
 
 ## Project Structure
 ```
