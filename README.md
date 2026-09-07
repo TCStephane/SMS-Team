@@ -31,7 +31,7 @@ Board: [Add Trello / GitHub Projects / Jira link here]
 │   ├── db.sqlite3         # SQLite DB file
 │   └── logs/              # ETL logs
 ├── etl/                   # Parsing, cleaning, categorizing, loading scripts
-├── api/                   # Optional FastAPI layer
+├── api/                   
 ├── scripts/               # Shell scripts to run ETL / serve frontend
 └── tests/                 # Unit tests
 ```
