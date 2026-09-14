@@ -13,16 +13,18 @@ CREATE TABLE Users (
     momoBalance DECIMAL(12, 2) DEFAULT 0.00 CHECK (momoBalance >= 0) COMMENT 'Current mobile money balance'
 ) COMMENT = 'Stores registered MoMo system users';
 
-CREATE TABLE Transactions (
-    transactionId INT PRIMARY KEY,
-    timestamp DATETIME,
-    status VARCHAR(20),
-    senderId INT,
-    receiverId INT,
-    currentAmount DECIMAL(12,2),
-    transactionFee DECIMAL(10,2),
-    governmentTax DECIMAL(10,2),
-    senderBalanceAfter DECIMAL(12,2),
-    receiverBalanceAfter DECIMAL(12,2),
-    referenceText VARCHAR(255)
-);
+CREATE TABLE transactions (
+    transactionId INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for each transaction',
+    transactionTimestamp DATETIME NOT NULL COMMENT 'Date and time the transaction occurred',
+    status VARCHAR(20) NOT NULL COMMENT 'Transaction status e.g. success, failed, pending',
+    senderId INT NOT NULL COMMENT 'FK to the sending user',
+    receiverId INT NOT NULL COMMENT 'FK to the receiving user',
+    currentAmount DECIMAL(12,2) NOT NULL CHECK (currentAmount >= 0) COMMENT 'Transaction amount',
+    transactionFee DECIMAL(10,2) DEFAULT 0.00 CHECK (transactionFee >= 0) COMMENT 'Fee charged for the transaction',
+    governmentTax DECIMAL(10,2) DEFAULT 0.00 CHECK (governmentTax >= 0) COMMENT 'Government tax applied',
+    senderBalanceAfter DECIMAL(12,2) COMMENT 'Sender balance after transaction',
+    receiverBalanceAfter DECIMAL(12,2) COMMENT 'Receiver balance after transaction',
+    referenceText VARCHAR(255) COMMENT 'Free-text reference or note for the transaction',
+    FOREIGN KEY (senderId) REFERENCES users(userId),
+    FOREIGN KEY (receiverId) REFERENCES users(userId)
+) COMMENT = 'Stores MoMo transaction records';
