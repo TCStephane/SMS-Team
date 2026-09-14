@@ -1,6 +1,8 @@
+-- Active: 1789410485152@@127.0.0.1@3306
 CREATE DATABASE IF NOT EXISTS momo_sms;
 
 USE momo_sms;
+
 
 CREATE TABLE users (
     userId INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for each user',
@@ -52,3 +54,10 @@ CREATE TABLE system_logs (
     logTimestamp DATETIME NOT NULL COMMENT 'Timestamp when the log was recorded',
     FOREIGN KEY (transactionId) REFERENCES transactions(transactionId) ON DELETE SET NULL
 ) COMMENT = 'Stores system logs associated with transactions';
+
+INSERT INTO users (firstName, lastName, phoneNumber, dateOfBirth, gender, kycTier, momoBalance) VALUES
+('Dorcase', 'Lesly', '0788111222', '1999-03-14', 'Female', 'Tier2', 15000.00),
+('Stephane', 'Tchatchum', '0788333444', '2000-07-22', 'Male', 'Tier3', 45000.00),
+('Melissa', 'Elise', '0788555666', '2001-11-05', 'Female', 'Tier1', 2500.00),
+('David', 'Ange', '0788777888', '1998-01-30', 'Male', 'Tier2', 12300.00),
+('George', 'Edwin', '0788999000', '1997-09-18', 'Male', 'Tier3', 89000.00);
