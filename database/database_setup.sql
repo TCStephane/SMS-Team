@@ -6,23 +6,23 @@ CREATE TABLE users (
     userId INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for each user',
     firstName VARCHAR(50) NOT NULL COMMENT 'User first name',
     lastName VARCHAR(50) NOT NULL COMMENT 'User last name',
-    phoneNumber INT NOT NULL COMMENT 'Mobile money subscriber MSISDN',
+    phoneNumber VARCHAR(15) NOT NULL UNIQUE COMMENT 'Mobile money subscriber',
     dateOfBirth DATE COMMENT 'User date of birth',
     gender VARCHAR(10) COMMENT 'User gender',
     kycTier VARCHAR(20) COMMENT 'KYC verification level',
-    momoBalance DECIMAL(12, 2) DEFAULT 0.00 COMMENT 'Current mobile money balance',
-    identifier VARCHAR(50) COMMENT 'User unique identifier or code'
+    momoBalance DECIMAL(12, 2) DEFAULT 0.00 CHECK (momoBalance >= 0) COMMENT 'Current mobile money balance',
+    identifier VARCHAR(50) COMMENT 'National ID or external system identifier'
 ) COMMENT = 'Stores registered MoMo system users';
 
 CREATE TABLE transactions (
     transactionId INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for each transaction',
     senderId INT NOT NULL COMMENT 'FK to the sending user',
     receiverId INT NOT NULL COMMENT 'FK to the receiving user',
-    timestamp DATETIME NOT NULL COMMENT 'Date and time the transaction occurred',
+    transactionTimestamp DATETIME NOT NULL COMMENT 'Date and time the transaction occurred',
     status VARCHAR(20) NOT NULL COMMENT 'Transaction status e.g. success, failed, pending',
-    currentAmount DECIMAL(12,2) NOT NULL COMMENT 'Transaction amount',
-    transactionFee DECIMAL(10,2) DEFAULT 0.00 COMMENT 'Fee charged for the transaction',
-    governmentTax DECIMAL(10,2) DEFAULT 0.00 COMMENT 'Government tax applied',
+    currentAmount DECIMAL(12,2) NOT NULL CHECK (currentAmount >= 0) COMMENT 'Transaction amount',
+    transactionFee DECIMAL(10,2) DEFAULT 0.00 CHECK (transactionFee >= 0) COMMENT 'Fee charged for the transaction',
+    governmentTax DECIMAL(10,2) DEFAULT 0.00 CHECK (governmentTax >= 0) COMMENT 'Government tax applied',
     senderBalanceAfter DECIMAL(12,2) COMMENT 'Sender balance after transaction',
     receiverBalanceAfter DECIMAL(12,2) COMMENT 'Receiver balance after transaction',
     referenceText VARCHAR(255) COMMENT 'Free-text reference or note for the transaction',
@@ -49,6 +49,6 @@ CREATE TABLE system_logs (
     transactionId INT COMMENT 'FK to the related transaction',
     logLevel VARCHAR(20) NOT NULL COMMENT 'Severity level of the log e.g., INFO, ERROR, WARN',
     message VARCHAR(255) NOT NULL COMMENT 'Log message detail',
-    timestamp DATETIME NOT NULL COMMENT 'Timestamp when the log was recorded',
+    logTimestamp DATETIME NOT NULL COMMENT 'Timestamp when the log was recorded',
     FOREIGN KEY (transactionId) REFERENCES transactions(transactionId) ON DELETE SET NULL
 ) COMMENT = 'Stores system logs associated with transactions';
