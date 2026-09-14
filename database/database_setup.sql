@@ -61,3 +61,17 @@ INSERT INTO users (firstName, lastName, phoneNumber, dateOfBirth, gender, kycTie
 ('Melissa', 'Elise', '0788555666', '2001-11-05', 'Female', 'Tier1', 2500.00),
 ('David', 'Ange', '0788777888', '1998-01-30', 'Male', 'Tier2', 12300.00),
 ('George', 'Edwin', '0788999000', '1997-09-18', 'Male', 'Tier3', 89000.00);
+
+INSERT INTO transactions (senderId, receiverId, transactionTimestamp, status, currentAmount, transactionFee, governmentTax, senderBalanceAfter, receiverBalanceAfter, referenceText) VALUES
+(1, 2, '2026-06-01 10:15:00', 'SUCCESS', 5000.00, 100.00, 10.00, 9890.00, 50000.00, 'Transfer of 5000 RWF to Stephane Tchatchum'),
+(3, 1, '2026-06-01 11:20:00', 'FAILED', 3000.00, 0.00, 0.00, 2500.00, 15000.00, 'Payment of 3000 RWF to Dorcase Lesly failed: Insufficient funds'),
+(4, 5, '2026-06-02 14:05:00', 'SUCCESS', 2000.00, 50.00, 5.00, 10245.00, 91000.00, 'Transferred 2000 RWF to 0788999000'),
+(2, 4, '2026-06-03 09:30:00', 'PENDING', 10000.00, 150.00, 15.00, NULL, NULL, 'Payment of 10000 RWF to David\'s Shop'),
+(5, 1, '2026-06-04 16:45:00', 'SUCCESS', 15000.00, 200.00, 20.00, 73780.00, 30000.00, 'Transfer to Dorcase Lesly (0788111222)');
+
+INSERT INTO transaction_categories (transCategoryName, description) VALUES
+('Transfer', 'Peer-to-peer money transfers between users'),
+('Payment', 'Payments made to merchants or shops'),
+('Deposit', 'Cash-in or top-up transactions into mobile money accounts'),
+('Airtime', 'Purchases of mobile airtime or data bundles'),
+('Bill Payment', 'Payments for utility bills, school fees, or services');
