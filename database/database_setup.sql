@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS momo_sms;
 
 USE momo_sms;
 
-CREATE TABLE Users (
+CREATE TABLE users (
     userId INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for each user',
     phoneNumber VARCHAR(15) NOT NULL UNIQUE COMMENT 'Mobile money subscriber MSISDN',
     firstName VARCHAR(50) NOT NULL COMMENT 'User first name',
