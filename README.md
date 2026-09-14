@@ -42,3 +42,7 @@ Board: https://github.com/users/Edenoliver19/projects/1/views/1
 3. Place the raw XML file in `data/raw/`
 4. Run the ETL pipeline: `bash scripts/run_etl.sh`
 5. Serve the frontend: `bash scripts/serve_frontend.sh`
+
+## Team Task Sheet
+Team Task Sheet: https://docs.google.com/spreadsheets/d/1uXz-sH-oNDaBkWZBpQvr6HRq_AZWBfH5yAPg-5yXXqA/edit?gid=0#gid=0
+
