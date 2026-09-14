@@ -3,52 +3,52 @@ CREATE DATABASE IF NOT EXISTS momo_sms;
 USE momo_sms;
 
 CREATE TABLE users (
-    userId INT PRIMARY KEY AUTO_INCREMENT,
-    firstName VARCHAR(50) NOT NULL,
-    lastName VARCHAR(50) NOT NULL,
-    phoneNumber INT NOT NULL,
-    dateOfBirth DATE,
-    gender VARCHAR(10),
-    kycTier VARCHAR(20),
-    momoBalance DECIMAL(12, 2) DEFAULT 0.00,
-    identifier VARCHAR(50)
-);
+    userId INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for each user',
+    firstName VARCHAR(50) NOT NULL COMMENT 'User first name',
+    lastName VARCHAR(50) NOT NULL COMMENT 'User last name',
+    phoneNumber INT NOT NULL COMMENT 'Mobile money subscriber MSISDN',
+    dateOfBirth DATE COMMENT 'User date of birth',
+    gender VARCHAR(10) COMMENT 'User gender',
+    kycTier VARCHAR(20) COMMENT 'KYC verification level',
+    momoBalance DECIMAL(12, 2) DEFAULT 0.00 COMMENT 'Current mobile money balance',
+    identifier VARCHAR(50) COMMENT 'User unique identifier or code'
+) COMMENT = 'Stores registered MoMo system users';
 
 CREATE TABLE transactions (
-    transactionId INT PRIMARY KEY AUTO_INCREMENT,
-    senderId INT NOT NULL,
-    receiverId INT NOT NULL,
-    timestamp DATETIME NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    currentAmount DECIMAL(12,2) NOT NULL,
-    transactionFee DECIMAL(10,2) DEFAULT 0.00,
-    governmentTax DECIMAL(10,2) DEFAULT 0.00,
-    senderBalanceAfter DECIMAL(12,2),
-    receiverBalanceAfter DECIMAL(12,2),
-    referenceText VARCHAR(255),
+    transactionId INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for each transaction',
+    senderId INT NOT NULL COMMENT 'FK to the sending user',
+    receiverId INT NOT NULL COMMENT 'FK to the receiving user',
+    timestamp DATETIME NOT NULL COMMENT 'Date and time the transaction occurred',
+    status VARCHAR(20) NOT NULL COMMENT 'Transaction status e.g. success, failed, pending',
+    currentAmount DECIMAL(12,2) NOT NULL COMMENT 'Transaction amount',
+    transactionFee DECIMAL(10,2) DEFAULT 0.00 COMMENT 'Fee charged for the transaction',
+    governmentTax DECIMAL(10,2) DEFAULT 0.00 COMMENT 'Government tax applied',
+    senderBalanceAfter DECIMAL(12,2) COMMENT 'Sender balance after transaction',
+    receiverBalanceAfter DECIMAL(12,2) COMMENT 'Receiver balance after transaction',
+    referenceText VARCHAR(255) COMMENT 'Free-text reference or note for the transaction',
     FOREIGN KEY (senderId) REFERENCES users(userId),
     FOREIGN KEY (receiverId) REFERENCES users(userId)
-);
+) COMMENT = 'Stores MoMo transaction records';
 
 CREATE TABLE transaction_categories (
-    transCategoryId INT PRIMARY KEY AUTO_INCREMENT,
-    transCategoryName VARCHAR(50) NOT NULL,
-    description VARCHAR(255)
-);
+    transCategoryId INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for transaction category',
+    transCategoryName VARCHAR(50) NOT NULL COMMENT 'Name of the category',
+    description VARCHAR(255) COMMENT 'Description of the category'
+) COMMENT = 'Stores categories for classifying transactions';
 
 CREATE TABLE transaction_map (
-    transactionId INT,
-    transCategoryId INT,
+    transactionId INT COMMENT 'FK to the transaction',
+    transCategoryId INT COMMENT 'FK to the transaction category',
     PRIMARY KEY (transactionId, transCategoryId),
     FOREIGN KEY (transactionId) REFERENCES transactions(transactionId) ON DELETE CASCADE,
     FOREIGN KEY (transCategoryId) REFERENCES transaction_categories(transCategoryId) ON DELETE CASCADE
-);
+) COMMENT = 'Mapping table linking transactions to categories';
 
 CREATE TABLE system_logs (
-    sysLogId INT PRIMARY KEY AUTO_INCREMENT,
-    transactionId INT,
-    logLevel VARCHAR(20) NOT NULL,
-    message VARCHAR(255) NOT NULL,
-    timestamp DATETIME NOT NULL,
+    sysLogId INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for the system log entry',
+    transactionId INT COMMENT 'FK to the related transaction',
+    logLevel VARCHAR(20) NOT NULL COMMENT 'Severity level of the log e.g., INFO, ERROR, WARN',
+    message VARCHAR(255) NOT NULL COMMENT 'Log message detail',
+    timestamp DATETIME NOT NULL COMMENT 'Timestamp when the log was recorded',
     FOREIGN KEY (transactionId) REFERENCES transactions(transactionId) ON DELETE SET NULL
-);
+) COMMENT = 'Stores system logs associated with transactions';
