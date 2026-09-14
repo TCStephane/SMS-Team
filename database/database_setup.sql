@@ -28,3 +28,9 @@ CREATE TABLE transactions (
     FOREIGN KEY (senderId) REFERENCES users(userId),
     FOREIGN KEY (receiverId) REFERENCES users(userId)
 ) COMMENT = 'Stores MoMo transaction records';
+
+CREATE TABLE Transaction_Categories (
+    transCategoryId INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for transaction category',
+    transCategoryName VARCHAR(50) NOT NULL COMMENT 'Name of the category',
+    description VARCHAR(255) COMMENT 'Description of the category'
+) COMMENT = 'Stores categories for classifying transactions';
