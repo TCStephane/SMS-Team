@@ -42,3 +42,12 @@ CREATE TABLE Transaction_Map (
     FOREIGN KEY (transactionId) REFERENCES transactions(transactionId) ON DELETE CASCADE,
     FOREIGN KEY (transCategoryId) REFERENCES Transaction_Categories(transCategoryId) ON DELETE CASCADE
 ) COMMENT = 'Mapping table linking transactions to categories';
+
+CREATE TABLE System_Logs (
+    sysLogId INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for the system log entry',
+    transactionId INT COMMENT 'FK to the related transaction',
+    logLevel VARCHAR(20) NOT NULL COMMENT 'Severity level of the log e.g., INFO, ERROR, WARN',
+    message VARCHAR(255) NOT NULL COMMENT 'Log message detail',
+    timestamp DATETIME NOT NULL COMMENT 'Timestamp when the log was recorded',
+    FOREIGN KEY (transactionId) REFERENCES transactions(transactionId) ON DELETE SET NULL
+) COMMENT = 'Stores system logs associated with transactions';
