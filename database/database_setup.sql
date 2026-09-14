@@ -34,3 +34,11 @@ CREATE TABLE Transaction_Categories (
     transCategoryName VARCHAR(50) NOT NULL COMMENT 'Name of the category',
     description VARCHAR(255) COMMENT 'Description of the category'
 ) COMMENT = 'Stores categories for classifying transactions';
+
+CREATE TABLE Transaction_Map (
+    transactionId INT COMMENT 'FK to the transaction',
+    transCategoryId INT COMMENT 'FK to the transaction category',
+    PRIMARY KEY (transactionId, transCategoryId),
+    FOREIGN KEY (transactionId) REFERENCES transactions(transactionId) ON DELETE CASCADE,
+    FOREIGN KEY (transCategoryId) REFERENCES Transaction_Categories(transCategoryId) ON DELETE CASCADE
+) COMMENT = 'Mapping table linking transactions to categories';
