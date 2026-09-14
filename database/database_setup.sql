@@ -3,7 +3,6 @@ CREATE DATABASE IF NOT EXISTS momo_sms;
 
 USE momo_sms;
 
-
 CREATE TABLE users (
     userId INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for each user',
     firstName VARCHAR(50) NOT NULL COMMENT 'User first name',
@@ -75,3 +74,11 @@ INSERT INTO transaction_categories (transCategoryName, description) VALUES
 ('Deposit', 'Cash-in or top-up transactions into mobile money accounts'),
 ('Airtime', 'Purchases of mobile airtime or data bundles'),
 ('Bill Payment', 'Payments for utility bills, school fees, or services');
+
+INSERT INTO transaction_map (transactionId, transCategoryId) VALUES
+(1, 1),
+(2, 2),
+(3, 1),
+(4, 2),
+(5, 1);
+
