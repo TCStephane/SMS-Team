@@ -104,3 +104,6 @@ WHERE sysLogId = 5;
 
 INSERT INTO users (userId, firstName, lastName, phoneNumber)
 VALUES (1, 'Duplicate', 'User', '0788123456');
+
+INSERT INTO users (firstName, lastName, phoneNumber)
+VALUES (NULL, 'Test', '0788999111');
