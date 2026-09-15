@@ -94,3 +94,7 @@ FROM transactions t
 JOIN users u1 ON t.senderId = u1.userId
 JOIN users u2 ON t.receiverId = u2.userId
 WHERE t.status = 'SUCCESS';
+
+UPDATE transactions
+SET status = 'SUCCESS', senderBalanceAfter = 34685.00, receiverBalanceAfter = 22300.00
+WHERE transactionId = 4;
