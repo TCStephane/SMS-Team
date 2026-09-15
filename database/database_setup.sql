@@ -85,3 +85,6 @@ INSERT INTO transaction_map (transactionId, transCategoryId) VALUES
 CREATE INDEX idx_transactions_timestamp ON transactions(transactionTimestamp);
 CREATE INDEX idx_transactions_status ON transactions(status);
 CREATE INDEX idx_systemlogs_loglevel ON system_logs(logLevel);
+
+INSERT INTO transactions (senderId, receiverId, transactionTimestamp, status, currentAmount, transactionFee, governmentTax, senderBalanceAfter, receiverBalanceAfter, referenceText)
+VALUES (2, 3, '2026-06-05 12:00:00', 'SUCCESS', 1000.00, 20.00, 2.00, 33780.00, 3500.00, 'Transfer to Melissa Elise');
