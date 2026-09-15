@@ -111,3 +111,6 @@ VALUES (NULL, 'Test', '0788999111');
 
 INSERT INTO users (firstName, lastName, phoneNumber)
 VALUES ('Fake', 'User', '0788111222');
+
+INSERT INTO transactions (senderId, receiverId, transactionTimestamp, status, currentAmount)
+VALUES (1, 2, NOW(), 'SUCCESS', -500.00);
