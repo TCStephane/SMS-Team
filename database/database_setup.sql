@@ -102,8 +102,12 @@ WHERE transactionId = 4;
 DELETE FROM system_logs
 WHERE sysLogId = 5;
 
+-- Violation testing
 INSERT INTO users (userId, firstName, lastName, phoneNumber)
 VALUES (1, 'Duplicate', 'User', '0788123456');
 
 INSERT INTO users (firstName, lastName, phoneNumber)
 VALUES (NULL, 'Test', '0788999111');
+
+INSERT INTO users (firstName, lastName, phoneNumber)
+VALUES ('Fake', 'User', '0788111222');
