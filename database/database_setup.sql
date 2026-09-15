@@ -101,3 +101,6 @@ WHERE transactionId = 4;
 
 DELETE FROM system_logs
 WHERE sysLogId = 5;
+
+INSERT INTO users (userId, firstName, lastName, phoneNumber)
+VALUES (1, 'Duplicate', 'User', '0788123456');
