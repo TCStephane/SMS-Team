@@ -28,6 +28,9 @@ Our database is built around five tables: `Users`, `Transactions`, `Transaction_
 - **Transaction_Map** is a junction table resolving the many-to-many relationship between `Transactions` and `Transaction_Categories`, since a transaction may reasonably carry more than one category tag.
 - **System_Logs** tracks our own ETL pipeline's processing events (successes, warnings, errors) independently of the financial data. Its `transactionId` foreign key is nullable, since some log entries (e.g. parsing failures on malformed SMS text) occur before any transaction record exists.
 The full ERD, design rationale, data dictionary, sample queries, and constraint documentation are available in the **Database Design Document** (submitted separately as PDF) and in [`docs/erd_diagram.png`](docs/erd_diagram.png).
+
+## Database Design Documentation
+file:///C:/Users/user/Downloads/Database_Design_Document_The_Architects.pdf
  
 ### Security & Accuracy Rules
  
