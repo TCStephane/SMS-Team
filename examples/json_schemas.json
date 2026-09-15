@@ -1,0 +1,250 @@
+{
+  "users": [
+    {
+      "userId": 1,
+      "firstName": "Dorcase",
+      "lastName": "Lesly",
+      "phoneNumber": "0788111222",
+      "dateOfBirth": "1999-03-14",
+      "gender": "Female",
+      "kycTier": "Tier2",
+      "momoBalance": 15000.00,
+      "identifier": null
+    },
+    {
+      "userId": 2,
+      "firstName": "Stephane",
+      "lastName": "Tchatchum",
+      "phoneNumber": "0788333444",
+      "dateOfBirth": "2000-07-22",
+      "gender": "Male",
+      "kycTier": "Tier3",
+      "momoBalance": 45000.00,
+      "identifier": null
+    },
+    {
+      "userId": 3,
+      "firstName": "Melissa",
+      "lastName": "Elise",
+      "phoneNumber": "0788555666",
+      "dateOfBirth": "2001-11-05",
+      "gender": "Female",
+      "kycTier": "Tier1",
+      "momoBalance": 2500.00,
+      "identifier": null
+    },
+    {
+      "userId": 4,
+      "firstName": "David",
+      "lastName": "Ange",
+      "phoneNumber": "0788777888",
+      "dateOfBirth": "1998-01-30",
+      "gender": "Male",
+      "kycTier": "Tier2",
+      "momoBalance": 12300.00,
+      "identifier": null
+    },
+    {
+      "userId": 5,
+      "firstName": "George",
+      "lastName": "Edwin",
+      "phoneNumber": "0788999000",
+      "dateOfBirth": "1997-09-18",
+      "gender": "Male",
+      "kycTier": "Tier3",
+      "momoBalance": 89000.00,
+      "identifier": null
+    }
+  ],
+
+  "transactions": [
+    {
+      "transactionId": 1,
+      "senderId": 1,
+      "receiverId": 2,
+      "transactionTimestamp": "2026-06-01T10:15:00",
+      "status": "SUCCESS",
+      "currentAmount": 5000.00,
+      "transactionFee": 100.00,
+      "governmentTax": 10.00,
+      "senderBalanceAfter": 9890.00,
+      "receiverBalanceAfter": 50000.00,
+      "referenceText": "Transfer of 5000 RWF to Stephane Tchatchum"
+    },
+    {
+      "transactionId": 2,
+      "senderId": 3,
+      "receiverId": 1,
+      "transactionTimestamp": "2026-06-01T11:20:00",
+      "status": "FAILED",
+      "currentAmount": 3000.00,
+      "transactionFee": 0.00,
+      "governmentTax": 0.00,
+      "senderBalanceAfter": 2500.00,
+      "receiverBalanceAfter": 9890.00,
+      "referenceText": "Payment of 3000 RWF to Dorcase Lesly failed: Insufficient funds"
+    },
+    {
+      "transactionId": 3,
+      "senderId": 4,
+      "receiverId": 5,
+      "transactionTimestamp": "2026-06-02T14:05:00",
+      "status": "SUCCESS",
+      "currentAmount": 2000.00,
+      "transactionFee": 50.00,
+      "governmentTax": 5.00,
+      "senderBalanceAfter": 10245.00,
+      "receiverBalanceAfter": 91000.00,
+      "referenceText": "Transferred 2000 RWF to 0788999000"
+    },
+    {
+      "transactionId": 4,
+      "senderId": 2,
+      "receiverId": 4,
+      "transactionTimestamp": "2026-06-03T09:30:00",
+      "status": "PENDING",
+      "currentAmount": 10000.00,
+      "transactionFee": 150.00,
+      "governmentTax": 15.00,
+      "senderBalanceAfter": null,
+      "receiverBalanceAfter": null,
+      "referenceText": "Payment of 10000 RWF to David's Shop"
+    },
+    {
+      "transactionId": 5,
+      "senderId": 5,
+      "receiverId": 1,
+      "transactionTimestamp": "2026-06-04T16:45:00",
+      "status": "SUCCESS",
+      "currentAmount": 15000.00,
+      "transactionFee": 200.00,
+      "governmentTax": 20.00,
+      "senderBalanceAfter": 75780.00,
+      "receiverBalanceAfter": 24890.00,
+      "referenceText": "Transfer to Dorcase Lesly (0788111222)"
+    }
+  ],
+
+  "transactionCategories": [
+    {
+      "transCategoryId": 1,
+      "transCategoryName": "Transfer",
+      "description": "Peer-to-peer money transfers between users"
+    },
+    {
+      "transCategoryId": 2,
+      "transCategoryName": "Payment",
+      "description": "Payments made to merchants or shops"
+    },
+    {
+      "transCategoryId": 3,
+      "transCategoryName": "Deposit",
+      "description": "Cash-in or top-up transactions into mobile money accounts"
+    },
+    {
+      "transCategoryId": 4,
+      "transCategoryName": "Airtime",
+      "description": "Purchases of mobile airtime or data bundles"
+    },
+    {
+      "transCategoryId": 5,
+      "transCategoryName": "Bill Payment",
+      "description": "Payments for utility bills, school fees, or services"
+    }
+  ],
+
+  "transactionMap": [
+    {
+      "transactionId": 1,
+      "transCategoryId": 1
+    },
+    {
+      "transactionId": 2,
+      "transCategoryId": 2
+    },
+    {
+      "transactionId": 3,
+      "transCategoryId": 1
+    },
+    {
+      "transactionId": 4,
+      "transCategoryId": 2
+    },
+    {
+      "transactionId": 5,
+      "transCategoryId": 1
+    }
+  ],
+
+  "systemLogs": [],
+
+  "completeTransactionExample": {
+    "transactionId": 1,
+
+    "sender": {
+      "userId": 1,
+      "firstName": "Dorcase",
+      "lastName": "Lesly",
+      "phoneNumber": "0788111222",
+      "kycTier": "Tier2"
+    },
+
+    "receiver": {
+      "userId": 2,
+      "firstName": "Stephane",
+      "lastName": "Tchatchum",
+      "phoneNumber": "0788333444",
+      "kycTier": "Tier3"
+    },
+
+    "transaction": {
+      "transactionId": 1,
+      "senderId": 1,
+      "receiverId": 2,
+      "transactionTimestamp": "2026-06-01T10:15:00",
+      "status": "SUCCESS",
+      "currentAmount": 5000.00,
+      "transactionFee": 100.00,
+      "governmentTax": 10.00,
+      "senderBalanceAfter": 9890.00,
+      "receiverBalanceAfter": 50000.00,
+      "referenceText": "Transfer of 5000 RWF to Stephane Tchatchum"
+    },
+
+    "category": {
+      "transCategoryId": 1,
+      "transCategoryName": "Transfer",
+      "description": "Peer-to-peer money transfers between users"
+    },
+
+    "categoryMapping": {
+      "transactionId": 1,
+      "transCategoryId": 1
+    },
+
+    "systemLogs": []
+  },
+
+  "sqlToJsonMapping": {
+    "users": {
+      "sqlTable": "users",
+      "jsonKey": "users"
+    },
+    "transactions": {
+      "sqlTable": "transactions",
+      "jsonKey": "transactions"
+    },
+    "transactionCategories": {
+      "sqlTable": "transaction_categories",
+      "jsonKey": "transactionCategories"
+    },
+    "transactionMap": {
+      "sqlTable": "transaction_map",
+      "jsonKey": "transactionMap"
+    },
+    "systemLogs": {
+      "sqlTable": "system_logs",
+      "jsonKey": "systemLogs"
+    }
+  }
+}
