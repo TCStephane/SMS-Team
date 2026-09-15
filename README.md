@@ -30,7 +30,7 @@ Our database is built around five tables: `Users`, `Transactions`, `Transaction_
 The full ERD, design rationale, data dictionary, sample queries, and constraint documentation are available in the **Database Design Document** (submitted separately as PDF) and in [`docs/erd_diagram.png`](docs/erd_diagram.png).
 
 ## Database Design Documentation
-file:///C:/Users/user/Downloads/Database_Design_Document_The_Architects.pdf
+https://github.com/TCStephane/SMS-Team/blob/main/Database_Design_Document_The_Architects.pdf
  
 ### Security & Accuracy Rules
  
