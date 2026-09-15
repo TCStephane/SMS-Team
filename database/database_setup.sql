@@ -82,3 +82,22 @@ INSERT INTO transaction_map (transactionId, transCategoryId) VALUES
 (4, 2),
 (5, 1);
 
+CREATE INDEX idx_transactions_timestamp ON transactions(transactionTimestamp);
+CREATE INDEX idx_transactions_status ON transactions(status);
+CREATE INDEX idx_systemlogs_loglevel ON system_logs(logLevel);
+
+INSERT INTO transactions (senderId, receiverId, transactionTimestamp, status, currentAmount, transactionFee, governmentTax, senderBalanceAfter, receiverBalanceAfter, referenceText)
+VALUES (2, 3, '2026-06-05 12:00:00', 'SUCCESS', 1000.00, 20.00, 2.00, 33780.00, 3500.00, 'Transfer to Melissa Elise');
+
+SELECT t.transactionId, u1.firstName AS sender, u2.firstName AS receiver, t.currentAmount, t.status
+FROM transactions t
+JOIN users u1 ON t.senderId = u1.userId
+JOIN users u2 ON t.receiverId = u2.userId
+WHERE t.status = 'SUCCESS';
+
+UPDATE transactions
+SET status = 'SUCCESS', senderBalanceAfter = 34685.00, receiverBalanceAfter = 22300.00
+WHERE transactionId = 4;
+
+DELETE FROM system_logs
+WHERE sysLogId = 5;
