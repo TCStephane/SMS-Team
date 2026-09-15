@@ -16,7 +16,7 @@ Diagram: https://drive.google.com/file/d/1S9XQpp4Zy9GHpasJ5rH_kUblvPkCtMb0/view?
 Flow: XML file → ETL pipeline (parse, clean, categorize) → SQLite database → API (optional) → Frontend dashboard
 
 ## Scrum Board
-Board: https://github.com/users/Edenoliver19/projects/1/views/1
+Board: https://github.com/users/Edenoliver19/projects/1
 
 ## Project Structure
 ```
