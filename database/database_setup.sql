@@ -98,3 +98,6 @@ WHERE t.status = 'SUCCESS';
 UPDATE transactions
 SET status = 'SUCCESS', senderBalanceAfter = 34685.00, receiverBalanceAfter = 22300.00
 WHERE transactionId = 4;
+
+DELETE FROM system_logs
+WHERE sysLogId = 5;
