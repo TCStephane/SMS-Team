@@ -82,3 +82,6 @@ INSERT INTO transaction_map (transactionId, transCategoryId) VALUES
 (4, 2),
 (5, 1);
 
+CREATE INDEX idx_transactions_timestamp ON transactions(transactionTimestamp);
+CREATE INDEX idx_transactions_status ON transactions(status);
+CREATE INDEX idx_systemlogs_loglevel ON system_logs(logLevel);
