@@ -81,7 +81,7 @@
       "transactionFee": 0.00,
       "governmentTax": 0.00,
       "senderBalanceAfter": 2500.00,
-      "receiverBalanceAfter": 15000.00,
+      "receiverBalanceAfter": 9890.00,
       "referenceText": "Payment of 3000 RWF to Dorcase Lesly failed: Insufficient funds"
     },
     {
@@ -119,8 +119,8 @@
       "currentAmount": 15000.00,
       "transactionFee": 200.00,
       "governmentTax": 20.00,
-      "senderBalanceAfter": 73780.00,
-      "receiverBalanceAfter": 30000.00,
+      "senderBalanceAfter": 75780.00,
+      "receiverBalanceAfter": 24890.00,
       "referenceText": "Transfer to Dorcase Lesly (0788111222)"
     }
   ],
