@@ -8,10 +8,22 @@ import secrets
 USERNAME = "admin"
 PASSWORD = "secret"
 
+REQUIRED_FIELDS = ("type", "amount", "sender", "receiver")
+
 transactions = {
     1: {"id": 1, "type": "payment", "amount": 1000, "sender": "A", "receiver": "B"},
     2: {"id": 2, "type": "deposit", "amount": 5000, "sender": "C", "receiver": "D"},
 }
+
+
+def validate_transaction(data):
+    for field in REQUIRED_FIELDS:
+        if field not in data:
+            return f"Missing field: {field}"
+    amount = data["amount"]
+    if isinstance(amount, bool) or not isinstance(amount, (int, float)):
+        return "amount must be a number"
+    return None
 
 
 class TransactionHandler(BaseHTTPRequestHandler):
@@ -85,6 +97,51 @@ class TransactionHandler(BaseHTTPRequestHandler):
             {"WWW-Authenticate": 'Basic realm="MoMo API"'},
         )
 
+
+    def read_json_body(self):
+        try:
+            length = int(self.headers.get("Content-Length", 0))
+            if length <= 0:
+                return None
+            raw = self.rfile.read(length)
+            data = json.loads(raw)
+        except (ValueError, UnicodeDecodeError):
+            return None
+
+        if not isinstance(data, dict):
+            return None
+        return data
+
+    
+    def do_POST(self):
+        if not self.is_authorized():
+            self.send_unauthorized()
+            return
+
+        if self.path_parts() != ["transactions"]:
+            self.send_json(404, {"error": "Not Found"})
+            return
+
+        data = self.read_json_body()
+        if data is None:
+            self.send_json(400, {"error": "Invalid or missing JSON body"})
+            return
+
+        error = validate_transaction(data)
+        if error:
+            self.send_json(400, {"error": error})
+            return
+
+        new_id = max(transactions, default=0) + 1
+        new_record = {
+            "id": new_id,
+            "type": data["type"],
+            "amount": data["amount"],
+            "sender": data["sender"],
+            "receiver": data["receiver"],
+        }
+        transactions[new_id] = new_record
+        self.send_json(201, new_record)
 
 if __name__ == "__main__":
     server = HTTPServer(("localhost", 8000), TransactionHandler)
