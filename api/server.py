@@ -1,8 +1,13 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse
 import json
+import base64
+import binascii
+import secrets
 
-# id -> transaction. Later, load this from Dorcase's parser instead.
+USERNAME = "admin"
+PASSWORD = "secret"
+
 transactions = {
     1: {"id": 1, "type": "payment", "amount": 1000, "sender": "A", "receiver": "B"},
     2: {"id": 2, "type": "deposit", "amount": 5000, "sender": "C", "receiver": "D"},
@@ -44,6 +49,28 @@ class TransactionHandler(BaseHTTPRequestHandler):
 
         else:
             self.send_json(404, {"error": "Not Found"})
+
+    def is_authorized(self):
+        header = self.headers.get("Authorization")
+        if header is None:
+            return False
+
+        if not header.startswith('Basic '):
+            return False
+
+        encode = header[len("Basic "):]
+
+        try:
+            decoded = base64.b64decode(encode).decode("utf-8")
+            username, password = decoded.split(":", 1)
+        except (binascii.Error, UnicodeDecodeError, ValueError):
+            return False
+
+        user_ok = secrets.compare_digest(username.encode(), USERNAME.encode())
+        pass_ok = secrets.compare_digest(password.encode(), PASSWORD.encode())
+        return user_ok and pass_ok
+        
+    
 
 
 if __name__ == "__main__":
