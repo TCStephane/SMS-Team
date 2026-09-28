@@ -1,0 +1,11 @@
+=== Small set: 20 records (avg over every id, 2000 pass(es)) ===
+Method                 Avg per lookup (us)   Worst case, last id (us)   Speedup vs linear
+Linear search                        0.943                      1.668                1.0x
+Dictionary lookup                    0.213                      0.307                4.4x
+Binary search                        0.409                      0.574                2.3x
+
+=== Full dataset: 1691 records (avg over every id, 5 pass(es)) ===
+Method                 Avg per lookup (us)   Worst case, last id (us)   Speedup vs linear
+Linear search                       63.093                    269.918                1.0x
+Dictionary lookup                    0.263                      0.475              240.1x
+Binary search                        0.551                      0.833              114.6x
