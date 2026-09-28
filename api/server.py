@@ -10,10 +10,8 @@ PASSWORD = "secret"
 
 REQUIRED_FIELDS = ("type", "amount", "sender", "receiver")
 
-transactions = {
-    1: {"id": 1, "type": "payment", "amount": 1000, "sender": "A", "receiver": "B"},
-    2: {"id": 2, "type": "deposit", "amount": 5000, "sender": "C", "receiver": "D"},
-}
+with open('../data/processed/transactions.json', 'r') as file:
+    transactions = json.load(file)
 
 
 def validate_transaction(data):
