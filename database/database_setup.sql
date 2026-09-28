@@ -117,3 +117,6 @@ VALUES (1, 2, NOW(), 'SUCCESS', -500.00);
 
 INSERT INTO transactions (senderId, receiverId, transactionTimestamp, status, currentAmount)
 VALUES (999, 2, NOW(), 'SUCCESS', 1000.00);
+
+INSERT INTO system_logs (transactionId, logLevel, message, logTimestamp)
+VALUES (2, 'INFO', 'Test log for demo', NOW());
