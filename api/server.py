@@ -143,6 +143,68 @@ class TransactionHandler(BaseHTTPRequestHandler):
         transactions[new_id] = new_record
         self.send_json(201, new_record)
 
+
+    def get_id(self):
+        parts = self.path_parts()
+        if len(parts) != 2 or parts[0] != "transactions":
+            return None, (404, "Not Found")
+        try:
+            return int(parts[1]), None
+        except ValueError:
+            return None, (400, "Invalid ID")
+
+
+    def do_PUT(self):
+        if not self.is_authorized():
+            self.send_unauthorized()
+            return
+
+        tid, err = self.get_id()
+        if err:
+            self.send_json(err[0], {"error": err[1]})
+            return
+
+        if tid not in transactions:
+            self.send_json(404, {"error": "Not Found"})
+            return
+
+        data = self.read_json_body()
+        if data is None:
+            self.send_json(400, {"error": "Invalid or missing JSON body"})
+            return
+
+        error = validate_transaction(data)
+        if error:
+            self.send_json(400, {"error": error})
+            return
+
+        transactions[tid] = {
+            "id": tid,
+            "type": data["type"],
+            "amount": data["amount"],
+            "sender": data["sender"],
+            "receiver": data["receiver"],
+        }
+        self.send_json(200, transactions[tid])
+
+
+    def do_DELETE(self):
+        if not self.is_authorized():
+            self.send_unauthorized()
+            return
+
+        tid, err = self.get_id()
+        if err:
+            self.send_json(err[0], {"error": err[1]})
+            return
+
+        if tid not in transactions:
+            self.send_json(404, {"error": "Not Found"})
+            return
+
+        del transactions[tid]
+        self.send_json(200, {"message": f"Transaction {tid} deleted"})
+
 if __name__ == "__main__":
     server = HTTPServer(("localhost", 8000), TransactionHandler)
     print("Serving on http://localhost:8000")
