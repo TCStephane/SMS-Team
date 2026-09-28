@@ -16,19 +16,16 @@ transactions = {
 
 class TransactionHandler(BaseHTTPRequestHandler):
 
-    def send_json(self, status, data):
-        body = json.dumps(data).encode()
-        self.send_response(status)
-        self.send_header("Content-Type", "application/json")
-        self.send_header("Content-Length", str(len(body)))
-        self.end_headers()
-        self.wfile.write(body)
-
     def path_parts(self):
         # Ignores query strings and empty segments: "/transactions/1" -> ["transactions", "1"]
         return [p for p in urlparse(self.path).path.split("/") if p]
 
     def do_GET(self):
+
+        if not self.is_authorized():
+            self.send_unauthorized()
+            return
+
         parts = self.path_parts()
 
         if parts == ["transactions"]:
@@ -70,7 +67,23 @@ class TransactionHandler(BaseHTTPRequestHandler):
         pass_ok = secrets.compare_digest(password.encode(), PASSWORD.encode())
         return user_ok and pass_ok
         
-    
+    def send_json(self, status, data, extra_headers=None):
+        body = json.dumps(data).encode()
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        if extra_headers:
+            for name, value in extra_headers.items():
+                self.send_header(name, value)
+        self.end_headers()
+        self.wfile.write(body)
+
+    def send_unauthorized(self):
+        self.send_json(
+            401,
+            {"error": "Unauthorized"},
+            {"WWW-Authenticate": 'Basic realm="MoMo API"'},
+        )
 
 
 if __name__ == "__main__":
