@@ -101,3 +101,22 @@ WHERE transactionId = 4;
 
 DELETE FROM system_logs
 WHERE sysLogId = 5;
+
+-- Violation testing
+INSERT INTO users (userId, firstName, lastName, phoneNumber)
+VALUES (1, 'Duplicate', 'User', '0788123456');
+
+INSERT INTO users (firstName, lastName, phoneNumber)
+VALUES (NULL, 'Test', '0788999111');
+
+INSERT INTO users (firstName, lastName, phoneNumber)
+VALUES ('Fake', 'User', '0788111222');
+
+INSERT INTO transactions (senderId, receiverId, transactionTimestamp, status, currentAmount)
+VALUES (1, 2, NOW(), 'SUCCESS', -500.00);
+
+INSERT INTO transactions (senderId, receiverId, transactionTimestamp, status, currentAmount)
+VALUES (999, 2, NOW(), 'SUCCESS', 1000.00);
+
+INSERT INTO system_logs (transactionId, logLevel, message, logTimestamp)
+VALUES (2, 'INFO', 'Test log for demo', NOW());
