@@ -4,16 +4,21 @@ import json
 import base64
 import binascii
 import secrets
+from pathlib import Path
+import os
 
-USERNAME = "admin"
-PASSWORD = "secret"
 
-REQUIRED_FIELDS = ("type", "amount", "sender", "receiver")
+USERNAME = os.environ.get("API_USERNAME", "admin")
+PASSWORD = os.environ.get("API_PASSWORD", "secret")
 
-transactions = {
-    1: {"id": 1, "type": "payment", "amount": 1000, "sender": "A", "receiver": "B"},
-    2: {"id": 2, "type": "deposit", "amount": 5000, "sender": "C", "receiver": "D"},
-}
+REQUIRED_FIELDS = ("transaction_type", "amount", "sender", "receiver")
+
+
+ROOT = Path(__file__).resolve().parent.parent
+JSON_PATH = ROOT / "data" / "processed" / "transactions.json"
+with open(JSON_PATH, 'r') as file:
+    records = json.load(file)
+transactions = {r["id"]: r for r in records}
 
 
 def validate_transaction(data):
@@ -133,13 +138,8 @@ class TransactionHandler(BaseHTTPRequestHandler):
             return
 
         new_id = max(transactions, default=0) + 1
-        new_record = {
-            "id": new_id,
-            "type": data["type"],
-            "amount": data["amount"],
-            "sender": data["sender"],
-            "receiver": data["receiver"],
-        }
+        new_record = dict(data)
+        new_record["id"] = new_id
         transactions[new_id] = new_record
         self.send_json(201, new_record)
 
@@ -178,13 +178,9 @@ class TransactionHandler(BaseHTTPRequestHandler):
             self.send_json(400, {"error": error})
             return
 
-        transactions[tid] = {
-            "id": tid,
-            "type": data["type"],
-            "amount": data["amount"],
-            "sender": data["sender"],
-            "receiver": data["receiver"],
-        }
+        updated = dict(data)
+        updated["id"] = tid
+        transactions[tid] = updated
         self.send_json(200, transactions[tid])
 
 
